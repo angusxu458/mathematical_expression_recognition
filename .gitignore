@@ -1,0 +1,17 @@
+utils/
+wx_server/
+report/
+Data/
+Packages/
+Papers/
+__pycache__/
+.ipynb_checkpoints/
+*.py
+report*
+*.zip
+
+!report/report.pdf
+!report/images/*
+!Data/train_dir/train/1.jpg
+!train_keras.py
+!dataset_keras.py
