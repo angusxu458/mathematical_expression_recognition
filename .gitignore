@@ -1,13 +1,16 @@
 utils/
 wx_server/
-report/
-Data/
+report/*
+Data/train.*
+Data/test_dir/
+Data/train_dir/train/*
 Packages/
 Papers/
 __pycache__/
 .ipynb_checkpoints/
 *.py
-report*
+report.pdf
+report.html
 *.zip
 
 !report/report.pdf
