@@ -4,7 +4,7 @@
 
 这是Udacity机器学习工程师的毕业项目，主要利用keras和TensorFlow，构建了一个CNN+RNN的模型
 利用CTC Loss解决了准确识别图像中算式的问题，在这个项目中，得到了在给定数据集上100%
-的准确率，并利用flask框架建立了一个web端的OCR服务(http:54.211.233.138:8000/predict)。整个项目的分析，建模，训练，预测，思考的代码部分在`mathexpression_recognition.ipnb`
+的准确率，并利用flask框架建立了一个web端的OCR服务(http:54.211.233.138:8000/predict)。整个项目的分析，建模，训练，预测，思考的代码部分在`mathexpression_recognition.ipynb`
 ，报告及结果呈现在'report/report.pdf'中。
 
 ## 项目基础
@@ -54,7 +54,7 @@
 ## 模型训练时长
 1epoch约为40分钟，50epoch总共30多小时。训练脚本在`train_keras.py`和
 `dataset_keras.py`中，训练时标准输出信息在`train_captcha.log`和
-`train2.log`中，相应代码在`mathexpression_recognition.ipnb`中都有
+`train2.log`中，相应代码在`mathexpression_recognition.ipynb`中都有
 体现。
 
 ## 模型训练结果
