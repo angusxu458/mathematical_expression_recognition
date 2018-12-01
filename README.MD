@@ -52,10 +52,10 @@
 ![CTC Loss结构](report/images/model3.png)
 
 ## 模型训练时长
-1epoch约为40分钟，50epoch总共30多小时。训练脚本在`train_keras.py`和
-`dataset_keras.py`中，训练时标准输出信息在`train_captcha.log`和
-`train2.log`中，相应代码在`mathexpression_recognition.ipynb`中都有
-体现。
+1epoch约为5分钟，200epoch总共约17小时。训练脚本在`train_keras.py`和
+`dataset_keras.py`中，训练时标准输出信息在`train7_captcha.log`和
+`train4.log`,`train5.log`,`train6.log`中，
+相应代码在`mathexpression_recognition.ipynb`中都有体现。
 
 ## 模型训练结果
 达到原数据集上预测准确率为100%。

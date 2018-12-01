@@ -10,7 +10,7 @@ from keras.layers.recurrent import GRU
 from keras.layers.merge import add, concatenate
 from keras.activations import relu
 from keras.models import Model
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adam
 import keras.backend as K
 
 import tensorflow as tf
@@ -101,11 +101,12 @@ label_length = Input(name='label_length', shape=[1], dtype='int64')
 
 loss_out = Lambda(ctc_lambda_func, output_shape=(1,), name='ctc')            ([base_model.output, labels, input_length, label_length])
 
-sgd = SGD(lr=0.02, decay=1e-6, momentum=0.9, nesterov=True, clipnorm=5)
+sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True, clipnorm=5)
+adam = Adam(lr=1e-3, decay=1e-6)
 
 model = Model(inputs=[input_data, labels, input_length, label_length], outputs=loss_out)
 
-model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=sgd)
+model.compile(loss={'ctc': lambda y_true, y_pred: y_pred}, optimizer=adam)
 # graph.append(tf.get_default_graph())
 
 out = Lambda(ctc_decode, output_shape=[None,], name='decoder')(y_pred)
@@ -115,21 +116,20 @@ model_predict = K.function([model.layers[0].input],[model.layers[-5].output])
 model_decode = K.function([model.layers[-5].output],[out])
 
 
-from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint
+from keras.callbacks import ReduceLROnPlateau, ModelCheckpoint, EarlyStopping
 import os
-
 
 
 batch_size = 50
 if __name__ == '__main__':
     data = dataset()
     valid_data = dataset(train=False)
-    model, base_model = create_model()
-    if os.path.exists("model/model_gtu_best.h5"):
-        model.load_weights("model/model_gtu_best.h5")
-    history = model.fit_generator(data.get_batch(), steps_per_epoch=int(0.7*100000/batch_size),
-                                    epochs=50,
-                        validation_data=valid_data.get_batch(),
-                                  validation_steps=int(0.1*100000/batch_size),
-                       callbacks=[ReduceLROnPlateau('loss'),
-                                 ModelCheckpoint('model/model_gru_best.h5',save_best_only=True)])
+    # if os.path.exists("model/model_gru_best_4.h5"):
+    #     model.load_weights("model/model_gru_best_4.h5")
+    history = model.fit_generator(data.gen_data(), steps_per_epoch=int(100000/50),
+                              epochs=400,
+                    validation_data=valid_data.get_batch(),
+                              validation_steps=int(0.3*100000/50),
+                   callbacks=[ReduceLROnPlateau('loss',cooldown=1),
+                              # EarlyStopping(monitor='val_loss',patience=20),
+                             ModelCheckpoint('model/model_gru_best_cap.h5',save_best_only=True)])
