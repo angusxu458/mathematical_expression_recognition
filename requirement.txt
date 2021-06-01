@@ -92,7 +92,7 @@ tornado==4.5.2
 tqdm==4.15.0
 traitlets==4.3.2
 Twisted==17.5.0
-urllib3==1.24.1
+urllib3==1.26.5
 wcwidth==0.1.7
 wechatpy==1.7.5
 Werkzeug==0.12.2
