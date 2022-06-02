@@ -22,7 +22,7 @@ Flask==0.12.2
 gast==0.2.0
 grpcio==1.12.1
 h5py==2.8.0
-html5lib==0.9999999
+html5lib==0.99999999
 hyperlink==17.1.1
 idna==2.6
 incremental==16.10.1
